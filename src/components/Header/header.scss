@@ -1,0 +1,19 @@
+.header{
+    height: 70px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
+    nav{
+        ul{
+            display: flex;
+            padding: 0;
+            list-style: none;
+            justify-content: center;
+            height: 70px;
+            align-items: center;
+            .nav__link{
+                text-decoration: none;
+                font-size: 16px;
+                margin-right: 1rem;
+            }
+        }
+    }
+}

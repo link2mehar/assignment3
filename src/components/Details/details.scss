@@ -1,0 +1,20 @@
+.detail__container{
+    display: flex;
+    flex-direction: column;
+    max-width: 70%;
+    margin: auto;
+    .movie__page{
+        display: flex;
+        .movie__details{
+            padding: 2rem;
+        }
+    }
+    .similar__movies{
+        display: flex;
+        flex-wrap: wrap;
+        row-gap: 20px;
+        column-gap: 20px;
+        justify-content: center;
+        margin: 2rem 1rem;
+    }
+}
