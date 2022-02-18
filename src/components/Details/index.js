@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { fetchMovieDetail, fetchSimilar } from "../../http/movies-service";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchMovieThunk, fetchSimilarMoviesThunk } from "../../redux-slices/movieSlice";
+
 import MovieCard from "../MovieCard/MovieCard";
 import "./details.scss";
 
@@ -8,20 +10,16 @@ const DetailComponent = () => {
     const baseUrl = "https://image.tmdb.org/t/p/w500"
 
     const { id } = useParams();
-    const [movie, setMovie] = useState();
-    const [similarMovies, setSimilarMovies] = useState([]);
+    const { movie, movieLoading, similarMovies } = useSelector(state => state.movies);
+    const dispatch = useDispatch();
 
-    useEffect(async () => {
-        const res = await fetchMovieDetail(id);
-        setMovie(res.data);
-        console.log(res.data);
-        const similarMovies = await fetchSimilar(id);
-        setSimilarMovies(similarMovies?.data?.results);
-
-    }, [id])
+    useEffect(() => {
+        dispatch(fetchMovieThunk(id));
+        dispatch(fetchSimilarMoviesThunk(id));
+    }, [dispatch, id])
 
     return <div className="detail__container">
-        <div className="movie__page">
+        {movieLoading ? 'Loading...' : <><div className="movie__page">
             <div className="movie__poster">
                 {movie && <img src={`${baseUrl}${movie?.poster_path}`} alt={movie?.title} />}
             </div>
@@ -40,12 +38,13 @@ const DetailComponent = () => {
             </div>
         </div>
 
-        <div className="smilar__movies__container">
-            <h1>Similar Movies</h1>
-            <div className="similar__movies">
-                {similarMovies?.slice(0, 5).map(movie => <MovieCard key={movie?.title} movie={movie} />)}
-            </div>
-        </div>
+            <div className="smilar__movies__container">
+                <h1>Similar Movies</h1>
+                <div className="similar__movies">
+                    {similarMovies?.slice(0, 5).map(movie => <MovieCard key={movie?.title} movie={movie} />)}
+                </div>
+            </div></>}
+
 
 
     </div>
