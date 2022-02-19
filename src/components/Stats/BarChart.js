@@ -1,15 +1,16 @@
 import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
-function BarChart({ data, parent }) {
+function BarChart({ data, parent, loading }) {
     const ref = useRef();
-    console.log(data);
 
     useEffect(() => {
         const margin = { top: 20, right: 20, bottom: 70, left: 40 };
 
         const width = 1200 - margin.left - margin.right;
-        const height = 700 - margin.top - margin.bottom;
+        const height = 450 - margin.top - margin.bottom;
         const svg = d3.select(ref.current)
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.bottom + margin.top);
@@ -33,7 +34,7 @@ function BarChart({ data, parent }) {
             .attr("transform", `translate(${margin.left},0)`)
             .call(d3.axisLeft(y));
         svg.append("g")
-            .attr("fill", "tomato")
+            .attr("fill", "#de4a24")
             .selectAll("rect")
             .data(data)
             .join("rect")
@@ -43,13 +44,13 @@ function BarChart({ data, parent }) {
             .attr("width", x.bandwidth())
 
 
-
     }, [data, parent])
 
     return (
-        <div id="charts">
-            <svg ref={ref}></svg>
-        </div>
+        <div className="chart" >
+            {loading ? <Skeleton height={500} count={5} /> : <svg ref={ref}></svg>}
+
+        </div >
 
     )
 

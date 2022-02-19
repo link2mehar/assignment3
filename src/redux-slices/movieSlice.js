@@ -1,10 +1,18 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchMovies, fetchMovieDetail, fetchSimilar } from "../http/movies-service";
+import { fetchMovies, fetchMovieDetail, fetchSimilar, searchMovie, fetchGenreMovieList, fetchMoviesByGenre } from "../http/movies-service";
 
 export const fetchMoviesThunk = createAsyncThunk(
     'movies/list',
     async () => {
         const response = await fetchMovies();
+        return response.data.results;
+    }
+)
+
+export const fetchMoviesByGenreThunk = createAsyncThunk(
+    'movies/gen',
+    async (id) => {
+        const response = await fetchMoviesByGenre(id);
         return response.data.results;
     }
 )
@@ -25,9 +33,26 @@ export const fetchSimilarMoviesThunk = createAsyncThunk(
     }
 )
 
+export const fetchSearchedMoviesThunk = createAsyncThunk(
+    'movies/search',
+    async (id) => {
+        const response = await searchMovie(id);
+        return response.data.results;
+    }
+)
+
+export const fetchGenreMovieListThunk = createAsyncThunk(
+    'movies/genre',
+    async (id) => {
+        const response = await fetchGenreMovieList(id);
+        return response.data.genres;
+    }
+)
+
 const initialState = {
     movies: [],
     movie: {},
+    genres: [],
     similarMovies: [],
     similarLoading: false,
     movieLoading: false,
@@ -60,6 +85,27 @@ const moviesListSlice = createSlice({
         [fetchSimilarMoviesThunk.fulfilled]: (state, action) => {
             state.similarMovies = action.payload;
             state.similarLoading = false;
+        },
+        [fetchSearchedMoviesThunk.pending.type]: (state) => {
+            state.loading = true;
+        },
+        [fetchSearchedMoviesThunk.fulfilled]: (state, action) => {
+            state.movies = action.payload;
+            state.loading = false;
+        },
+        [fetchGenreMovieListThunk.pending.type]: (state) => {
+            state.loading = true;
+        },
+        [fetchGenreMovieListThunk.fulfilled]: (state, action) => {
+            state.genres = action.payload;
+            state.loading = false;
+        },
+        [fetchMoviesByGenreThunk.pending.type]: (state) => {
+            state.loading = true;
+        },
+        [fetchMoviesByGenreThunk.fulfilled]: (state, action) => {
+            state.movies = action.payload;
+            state.loading = false;
         },
     }
 })

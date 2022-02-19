@@ -29,15 +29,15 @@ const StatsComponent = () => {
 
         {loading ? 'Loading...' : <>
 
-            <h1>Stats</h1>
+            <h1 className="stats__heading">Top Ten Movies by Vote Average & Vote their Vote Count</h1>
 
             <div className="rating__count">
-                <h2>Rating Count</h2>
+                <h2 className="chart__heading">Vote Average</h2>
                 <BarChart parent='voteAvg' width={500} height={400} data={voteAvg} />
             </div>
 
             <div className="rating__count">
-                <h2>Vote Count</h2>
+                <h2 className="chart__heading">Vote Count</h2>
                 <BarChart parent='voteCount' width={500} height={400} data={voteCount} />
             </div>
 

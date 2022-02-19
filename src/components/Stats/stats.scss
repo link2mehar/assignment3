@@ -1,5 +1,17 @@
 .stats__container{
     max-width: 70%;
     margin:1.5rem auto;
-
+    .stats__heading{
+        
+    }
+    .chart__heading{
+        margin: 1rem 0;
+    }
+    .chart{
+        box-shadow: rgb(0 0 0 / 20%) 0px 18px 50px -10px;
+        max-width: fit-content;
+        border-radius: 6px;
+        background-color: whitesmoke;
+        padding: 1rem;
+    }
 }

@@ -9,13 +9,8 @@ const MovieCard = ({ movie }) => {
             <div className="movie__poster">
                 {movie && <img src={`${baseUrl}${movie?.poster_path}`} alt={movie?.title} />}
             </div>
+
         </Link>
-        <div className="movie__details">
-            <h1 className="movie__title">{movie.title}</h1>
-            <p>{movie?.release_date}</p>
-        </div>
-
-
     </div >
 
 }

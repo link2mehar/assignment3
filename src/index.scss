@@ -1,5 +1,16 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+body{
+    background-color: #16151a;
+    color: #fff;
+    font-family: 'Roboto';
+}
+.chart{
+    color: #000;
 }

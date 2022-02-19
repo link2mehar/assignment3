@@ -1,0 +1,16 @@
+.chip{
+    display: inline-block;
+    padding: 0 25px;
+    height: 30px;
+    font-size: 16px;
+    line-height: 30px;
+    border-radius: 25px;
+    background-color: #f1f1f1;
+    margin-right: 0.5rem;
+    cursor: pointer;
+    color: #000;
+}
+.chip__active{
+    background-color: #de4a24;
+    color: #fff;
+}
